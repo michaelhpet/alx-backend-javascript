@@ -1,8 +1,8 @@
-import { createUser, uploadPhoto } from './util';
+import { uploadPhoto, createUser } from './utils';
 
 export default async function handleProfileSignup() {
-  await Promise.all([createUser(), uploadPhoto()])
-    .then(([user, photo]) => {
+  await Promise.all([uploadPhoto(), createUser()])
+    .then(([photo, user]) => {
       console.log(`${photo.body} ${user.firstName} ${user.lastName}`);
     })
     .catch(() => {
