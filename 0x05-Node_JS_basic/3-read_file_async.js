@@ -4,34 +4,36 @@ function countStudents(path) {
   return new Promise((resolve, reject) => {
     fs.readFile(path, (error, data) => {
       if (error) reject(new Error('Cannot load the database'));
-      const content = data.toString('utf-8');
-      const lines = content.trim().split('\n');
-      const header = lines[0].split(',');
-      const fieldColumnIndex = header.findIndex(
-        (item) => item.toLowerCase() === 'field'
-      );
-      const nameColumnIndex = header.findIndex(
-        (item) => item.toLowerCase() === 'firstname'
-      );
-      const rows = lines.slice(1).map((row) => row.split(','));
-      const totalStudents = rows.length;
-      const studentsPerField = rows.reduce((_fields, student) => {
-        const fields = _fields;
-        if (fields[student[fieldColumnIndex]]) return fields;
-        fields[student[fieldColumnIndex]] = rows.filter(
-          (item) => item[fieldColumnIndex] === student[fieldColumnIndex]
+      if (data) {
+        const content = data.toString('utf-8');
+        const lines = content.trim().split('\n');
+        const header = lines[0].split(',');
+        const fieldColumnIndex = header.findIndex(
+          (item) => item.toLowerCase() === 'field',
         );
-        return fields;
-      }, {});
-      console.log(`Number of students: ${totalStudents}`);
-      Object.entries(studentsPerField).forEach(([field, students]) => {
-        console.log(
-          `Number of students in ${field}: ${students.length}. List: ${students
-            .map((s) => s[nameColumnIndex])
-            .join(', ')}`
+        const nameColumnIndex = header.findIndex(
+          (item) => item.toLowerCase() === 'firstname',
         );
-      });
-      resolve(true);
+        const rows = lines.slice(1).map((row) => row.split(','));
+        const totalStudents = rows.length;
+        const studentsPerField = rows.reduce((_fields, student) => {
+          const fields = _fields;
+          if (fields[student[fieldColumnIndex]]) return fields;
+          fields[student[fieldColumnIndex]] = rows.filter(
+            (item) => item[fieldColumnIndex] === student[fieldColumnIndex],
+          );
+          return fields;
+        }, {});
+        console.log(`Number of students: ${totalStudents}`);
+        Object.entries(studentsPerField).forEach(([field, students]) => {
+          console.log(
+            `Number of students in ${field}: ${
+              students.length
+            }. List: ${students.map((s) => s[nameColumnIndex]).join(', ')}`,
+          );
+        });
+        resolve(true);
+      }
     });
   });
 }
