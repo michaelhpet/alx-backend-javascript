@@ -13,10 +13,10 @@ function countStudents(path) {
         const lines = content.trim().split('\n');
         const header = lines[0].split(',');
         const fieldColumnIndex = header.findIndex(
-          (item) => item.toLowerCase() === 'field',
+          (item) => item.toLowerCase() === 'field'
         );
         const nameColumnIndex = header.findIndex(
-          (item) => item.toLowerCase() === 'firstname',
+          (item) => item.toLowerCase() === 'firstname'
         );
         const rows = lines.slice(1).map((row) => row.split(','));
         const totalStudents = rows.length;
@@ -24,7 +24,7 @@ function countStudents(path) {
           const fields = _fields;
           if (fields[student[fieldColumnIndex]]) return fields;
           fields[student[fieldColumnIndex]] = rows.filter(
-            (item) => item[fieldColumnIndex] === student[fieldColumnIndex],
+            (item) => item[fieldColumnIndex] === student[fieldColumnIndex]
           );
           return fields;
         }, {});
@@ -33,7 +33,7 @@ function countStudents(path) {
           result.push(
             `Number of students in ${field}: ${
               students.length
-            }. List: ${students.map((s) => s[nameColumnIndex]).join(', ')}`,
+            }. List: ${students.map((s) => s[nameColumnIndex]).join(', ')}`
           );
         });
         resolve(result);
@@ -64,7 +64,7 @@ app.on('request', (request, response) => {
       })
       .catch((error) => {
         dataList.push(
-          error instanceof Error ? error.message : error.toString(),
+          error instanceof Error ? error.message : error.toString()
         );
         const data = dataList.join('\n');
         response.setHeader('Content-Type', 'text/plain');
@@ -78,3 +78,5 @@ app.on('request', (request, response) => {
 app.listen(PORT, HOSTNAME, () => {
   process.stdout.write(`Server listening at http://${HOSTNAME}:${PORT}\n`);
 });
+
+module.exports = app;
