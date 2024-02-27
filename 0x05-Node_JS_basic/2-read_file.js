@@ -7,17 +7,18 @@ function countStudents(path) {
   const lines = content.trim().split('\n');
   const header = lines[0].split(',');
   const fieldColumnIndex = header.findIndex(
-    (item) => item.toLowerCase() === 'field'
+    (item) => item.toLowerCase() === 'field',
   );
   const nameColumnIndex = header.findIndex(
-    (item) => item.toLowerCase() === 'firstname'
+    (item) => item.toLowerCase() === 'firstname',
   );
   const rows = lines.slice(1).map((row) => row.split(','));
   const totalStudents = rows.length;
-  const studentsPerField = rows.reduce((fields, student) => {
+  const studentsPerField = rows.reduce((_fields, student) => {
+    const fields = _fields;
     if (fields[student[fieldColumnIndex]]) return fields;
     fields[student[fieldColumnIndex]] = rows.filter(
-      (item) => item[fieldColumnIndex] === student[fieldColumnIndex]
+      (item) => item[fieldColumnIndex] === student[fieldColumnIndex],
     );
     return fields;
   }, {});
@@ -26,7 +27,7 @@ function countStudents(path) {
     console.log(
       `Number of students in ${field}: ${students.length}. List: ${students
         .map((s) => s[nameColumnIndex])
-        .join(', ')}`
+        .join(', ')}`,
     );
   });
 }
