@@ -19,7 +19,7 @@ class StudentsController {
             dataList.push(
               `Number of students in ${field}: ${
                 students.length
-              }. List: ${students.map((s) => s.firstname).join(', ')}`
+              }. List: ${students.map((s) => s.firstname).join(', ')}`,
             );
           });
         const data = dataList.join('\n');
