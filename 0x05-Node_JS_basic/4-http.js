@@ -3,8 +3,8 @@ const http = require('http');
 const HOSTNAME = 'localhost';
 const PORT = 1245;
 
-const server = http.createServer();
-server.on('request', (_, response) => {
+const app = http.createServer();
+app.on('request', (_, response) => {
   const data = 'Hello Holberton School!';
   response.setHeader('Content-Type', 'text/plain');
   response.setHeader('Content-Length', data.length);
@@ -12,8 +12,8 @@ server.on('request', (_, response) => {
   response.write(Buffer.from(data));
 });
 
-server.listen(PORT, HOSTNAME, () => {
+app.listen(PORT, HOSTNAME, () => {
   process.stdout.write(`Server listening at http://${HOSTNAME}:${PORT}\n`);
 });
 
-module.exports = server;
+module.exports = app;
