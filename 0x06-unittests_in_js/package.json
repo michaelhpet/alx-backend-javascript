@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "test": "mocha ./*test.js"
+    "test": "mocha"
   },
-  "dependencies": {
+  "devDependencies": {
     "assert": "^2.1.0",
     "mocha": "^10.3.0"
   }
