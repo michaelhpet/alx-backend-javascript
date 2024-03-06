@@ -8,3 +8,4 @@ function calculateNumber(type, a, b) {
   else if (type === 'SUBTRACT') return _a - _b;
   return _a / _b;
 }
+module.exports = calculateNumber;
