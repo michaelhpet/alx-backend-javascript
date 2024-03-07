@@ -1,11 +1,14 @@
-function calculateNumber(type, a, b) {
-  if (typeof type !== 'string') throw new Error('type must be a string');
-  if (!['SUM', 'SUBTRACT', 'DIVIDE'].includes(type))
-    throw new Error('Invalid type provided');
-  const _a = Math.round(a);
-  const _b = Math.round(b);
-  if (type === 'SUM') return _a + _b;
-  else if (type === 'SUBTRACT') return _a - _b;
-  return _a / _b;
-}
+const calculateNumber = (type, a, b) => {
+  if (type === 'SUM') {
+    return Math.round(a) + Math.round(b);
+  }
+  if (type === 'SUBTRACT') {
+    return Math.round(a) - Math.round(b);
+  }
+  if (type === 'DIVIDE') {
+    return Math.round(b) === 0 ? 'Error' : Math.round(a) / Math.round(b);
+  }
+  return 0;
+};
+
 module.exports = calculateNumber;
